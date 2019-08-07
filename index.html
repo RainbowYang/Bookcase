@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookcase</title>
+</head>
+<body>
+<script src="https://vuejs.org/js/vue.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<div id="bookcase">
+    <el-tabs v-model="activeName">
+        <el-tab-pane label="待读" name="Waiting">
+            <books :status="'Waiting'" :books="books"/>
+        </el-tab-pane>
+        <el-tab-pane label="正读" name="Reading">
+            <books :status="'Reading'" :books="books"/>
+        </el-tab-pane>
+        <el-tab-pane label="欲读" name="Read">
+            <books :status="'Read'" :books="books"/>
+        </el-tab-pane>
+    </el-tabs>
+</div>
+<script>
+    'use strict'
+    let books = [{
+        title: "Test",
+        author: "Unknown",
+        status: "Waiting",
+        progress: "12",
+        URL: "https://RainbowYang.moe"
+    }, {
+        title: "Test",
+        author: "Unknown",
+        status: "Waiting",
+        progress: "12",
+        URL: "https://RainbowYang.moe"
+    }, {
+        title: "Test",
+        author: "Unknown",
+        status: "Reading",
+        progress: "12",
+        URL: "https://RainbowYang.moe"
+    }]
+
+    let vm = new Vue({
+        el: '#bookcase',
+        components: {
+            "books": {
+                props: ['status', 'books'],
+                template: `
+                    <el-collapse>
+                        <div v-for="book in books" v-if="book.status==status">
+                            <el-collapse-item>
+                                <template slot="title">
+                                    <el-tag>『{{book.title}}』</el-tag>
+                                </template>
+                                <div>
+                                    <el-tag>作者</el-tag>
+                                    <el-tag v-if="book.author" type="info">{{book.author}}</el-tag>
+                                    <el-tag v-else type="info">Unknown</el-tag>
+                                </div>
+                                <div v-if="book.progress">
+                                    <el-tag>进度</el-tag>
+                                    <el-progress style="width: 350px;display:inline-block" :percentage="book.progress"/>
+                                </div>
+                                <div v-if="book.URL">
+                                    <el-tag>链接</el-tag>
+                                    <el-link :href="book.URL" type="primary">{{book.URL}}</el-link>
+                                </div>
+                            </el-collapse-item>
+                        </div>
+                    </el-collapse>
+                `
+            }
+        },
+        data: {
+            activeName: 'Reading',
+            books,
+        }
+    })
+</script>
+</body>
+</html>
