@@ -5,9 +5,10 @@
     <title>Bookcase</title>
 </head>
 <body>
-<script src="https://vuejs.org/js/vue.js"></script>
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script src="https://cdn.bootcss.com/element-ui/2.11.1/index.js"></script>
+<link href="https://cdn.bootcss.com/element-ui/2.11.1/theme-chalk/index.css" rel="stylesheet">
 <div id="bookcase">
     <el-tabs v-model="activeName">
         <el-tab-pane label="待读" name="Waiting">
@@ -23,28 +24,15 @@
 </div>
 <script>
     'use strict'
-    let books = [{
-        title: "Test",
-        author: "Unknown",
-        status: "Waiting",
-        progress: "12",
-        URL: "https://RainbowYang.moe"
-    }, {
-        title: "Test",
-        author: "Unknown",
-        status: "Read",
-        progress: "12",
-        URL: "https://RainbowYang.moe"
-    }, {
-        title: "Test",
-        author: "Unknown",
-        status: "Reading",
-        progress: "12",
-        URL: "https://RainbowYang.moe"
-    }]
+    let books = []
+    $.getJSON("bookinfo.json", (data) => data.forEach(book => books.push(book)))
 
     let vm = new Vue({
         el: '#bookcase',
+        data: {
+            activeName: 'Reading',
+            books: books,
+        },
         components: {
             "books": {
                 props: ['status', 'books'],
@@ -60,9 +48,14 @@
                                     <el-tag v-if="book.author" type="info">{{book.author}}</el-tag>
                                     <el-tag v-else type="info">Unknown</el-tag>
                                 </div>
-                                <div v-if="book.progress">
+                                <div>
                                     <el-tag>进度</el-tag>
-                                    <el-progress style="width: 350px;display:inline-block" :percentage="book.progress"/>
+                                    <el-progress v-if="book.progress"
+                                                 style="width: 350px;display:inline-block"
+                                                 :percentage="book.progress"/>
+                                    <el-progress v-else
+                                                 style="width: 350px;display:inline-block"
+                                                 :percentage="book.status=='Read'? 100 : 0"/>
                                 </div>
                                 <div v-if="book.URL">
                                     <el-tag>链接</el-tag>
@@ -73,10 +66,6 @@
                     </el-collapse>
                 `
             }
-        },
-        data: {
-            activeName: 'Reading',
-            books,
         }
     })
 </script>

@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Test",
+        "author": "Unknown",
+        "status": "Waiting",
+        "progress": "0",
+        "URL": "https://RainbowYang.moe"
+    },
+    {
+        "title": "Test",
+        "author": "Unknown",
+        "status": "Reading",
+        "progress": "12",
+        "URL": "https://RainbowYang.moe"
+    },
+    {
+        "title": "Test",
+        "author": "Unknown",
+        "status": "Read",
+        "URL": "https://RainbowYang.moe"
+    }
+]
