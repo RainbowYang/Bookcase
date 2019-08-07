@@ -6,8 +6,8 @@
 </head>
 <body>
 <script src="https://vuejs.org/js/vue.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 <div id="bookcase">
     <el-tabs v-model="activeName">
         <el-tab-pane label="待读" name="Waiting">
@@ -16,7 +16,7 @@
         <el-tab-pane label="正读" name="Reading">
             <books :status="'Reading'" :books="books"/>
         </el-tab-pane>
-        <el-tab-pane label="欲读" name="Read">
+        <el-tab-pane label="已读" name="Read">
             <books :status="'Read'" :books="books"/>
         </el-tab-pane>
     </el-tabs>
@@ -32,7 +32,7 @@
     }, {
         title: "Test",
         author: "Unknown",
-        status: "Waiting",
+        status: "Read",
         progress: "12",
         URL: "https://RainbowYang.moe"
     }, {
