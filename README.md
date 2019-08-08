@@ -16,16 +16,19 @@ save your book and reading condition online
                 border: none !important;
                 overflow: hidden !important;
                 min-height: 300px"
-        src="index.html"></iframe>
+        src="https://bookcase.rainbowyang.moe/"></iframe>
 <script>
+    document.domain="rainbowyang.moe" //for cross origin
     window.setInterval(() => {
         try {
             var iframe = document.getElementById("iframe")
-            iframe.height = 0
+            console.log(iframe.contentWindow.document.body.scrollHeight)
+            console.log(iframe.contentWindow.document.documentElement.scrollHeight)
             iframe.height =
                 Math.max(iframe.contentWindow.document.body.scrollHeight,
                     iframe.contentWindow.document.documentElement.scrollHeight)
         } catch (ex) {
+            console.log(ex)
         }
     }, 20)
 </script>

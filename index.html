@@ -24,6 +24,7 @@
 </div>
 <script>
     'use strict'
+    document.domain = "rainbowyang.moe" //for cross origin
     let books = []
     $.getJSON("bookinfo.json", (data) => data.forEach(book => books.push(book)))
 
