@@ -69,9 +69,11 @@
         }
     })
 
+
     //for parent web
     //to adjust the height of iframe
     if (window.top !== window) {
+        document.domain = "rainbowyang.moe" // for cross origin
         let el = document.body
         let lastHeight = el.scrollHeight
         window.setInterval(() => {
