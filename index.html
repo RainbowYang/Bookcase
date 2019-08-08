@@ -24,7 +24,6 @@
 </div>
 <script>
     'use strict'
-    document.domain = "rainbowyang.moe" //for cross origin
     let books = []
     $.getJSON("bookinfo.json", (data) => data.forEach(book => books.push(book)))
 
@@ -69,6 +68,19 @@
             }
         }
     })
+
+    //for parent web
+    //to adjust the height of iframe
+    if (window.top !== window) {
+        let el = document.body
+        let lastHeight = el.scrollHeight
+        window.setInterval(() => {
+            if (lastHeight !== el.scrollHeight) {
+                lastHeight = el.scrollHeight
+                window.top.document.getElementById("bookcase").height = lastHeight
+            }
+        }, 20)
+    }
 </script>
 </body>
 </html>
