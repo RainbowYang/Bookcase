@@ -1,36 +1,31 @@
-[
-    {
-        "title": "Test",
+{
+    "Test_Waiting": {
         "author": "Unknown",
         "status": "Waiting",
         "progress": 0,
         "URL": "https://RainbowYang.moe"
     },
-    {
-        "title": "Test",
+    "Test_Waiting2": {
         "author": "Unknown",
         "status": "Waiting",
         "progress": 0,
         "URL": "https://RainbowYang.moe"
     },
-    {
-        "title": "Test",
+    "Test_Waiting3": {
         "author": "Unknown",
         "status": "Waiting",
         "progress": 0,
         "URL": "https://RainbowYang.moe"
     },
-    {
-        "title": "Test",
+    "Test_Reading": {
         "author": "Unknown",
         "status": "Reading",
         "progress": 12,
         "URL": "https://RainbowYang.moe"
     },
-    {
-        "title": "Test",
+    "Test_Read": {
         "author": "Unknown",
         "status": "Read",
         "URL": "https://RainbowYang.moe"
     }
-]
+}
