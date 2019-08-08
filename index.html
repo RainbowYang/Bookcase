@@ -9,7 +9,7 @@
 <script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
 <script src="https://cdn.bootcss.com/element-ui/2.11.1/index.js"></script>
 <link href="https://cdn.bootcss.com/element-ui/2.11.1/theme-chalk/index.css" rel="stylesheet">
-<bookcase id="bookcase" active_name="Reading"/>
+<bookcase id="bookcase" active_name="Reading"></bookcase>
 <script>
     'use strict'
     let books = {}
@@ -18,7 +18,7 @@
     let vm = new Vue({
             el: '#bookcase',
             components: {
-                "bookcase": {
+                bookcase: {
                     props: ["active_name"],
                     data: () => {
                         return {
@@ -31,13 +31,19 @@
                     },
                     template: `
                         <el-tabs v-model="active_name">
-                            <el-tab-pane v-for="(trans, origin) in status_trans" :label="trans" :name="origin">
-                                <books :status="origin"/>
+                            <el-tab-pane v-for="(trans, status) in status_trans" :label="trans" :name="status">
+                                <books :status="status"/>
+                                <el-tooltip effect="dark" content="添加" placement="bottom-start">
+                                    <el-button type="primary" icon="el-icon-plus" size="small" circle/>
+                                </el-tooltip>
+                                <el-tooltip effect="dark" content="保存" placement="bottom-start">
+                                    <el-button type="success" icon="el-icon-check" size="small" circle/>
+                                </el-tooltip>
                             </el-tab-pane>
                         </el-tabs>
                     `,
                     components: {
-                        "books": {
+                        books: {
                             props: ['status'],
                             data: () => {
                                 return {
@@ -45,43 +51,41 @@
                                 }
                             },
                             methods: {
-                                remove: function (title) {
+                                remove: (title) => {
                                     Vue.delete(books, title)
                                 },
                             },
                             template: `
                                 <el-collapse>
-                                    <div v-for="(book, title) in books" v-if="book.status==status">
-                                        <el-collapse-item>
-                                            <template slot="title">
-                                                <el-tag>『{{title}}』</el-tag>
-                                            </template>
-                                            <div>
-                                                <el-tag>作者</el-tag>
-                                                <el-tag v-if="book.author" type="info">{{book.author}}</el-tag>
-                                                <el-tag v-else type="info">Unknown</el-tag>
-                                            </div>
-                                            <div>
-                                                <el-tag>进度</el-tag>
-                                                <el-progress v-if="book.progress"
-                                                             style="width: 350px;display:inline-block"
-                                                             :percentage="book.progress"/>
-                                                <el-progress v-else
-                                                             style="width: 350px;display:inline-block"
-                                                             :percentage="book.status=='Read'? 100 : 0"/>
-                                            </div>
-                                            <div v-if="book.URL">
-                                                <el-tag>链接</el-tag>
-                                                <el-link :href="book.URL" type="primary">{{book.URL}}</el-link>
-                                            </div>
-                                            <div>
-                                                <el-tag>操作</el-tag>
-                                                <el-button type="primary" size="mini" icon="el-icon-edit" circle/>
-                                                <el-button type="danger" size="mini" icon="el-icon-delete" circle
-                                                           v-on:click="remove(title)"/>
-                                            </div>
-                                        </el-collapse-item>
-                                    </div>
+                                    <el-collapse-item v-for="(book, title) in books" v-if="book.status==status">
+                                        <template slot="title">
+                                            <el-tag>「 {{title}} 」</el-tag>
+                                        </template>
+                                        <div>
+                                            <el-tag>作者</el-tag>
+                                            <el-tag v-if="book.author" type="info">{{book.author}}</el-tag>
+                                            <el-tag v-else type="info">Unknown</el-tag>
+                                        </div>
+                                        <div>
+                                            <el-tag>进度</el-tag>
+                                            <el-progress v-if="book.progress"
+                                                         style="width: 350px;display:inline-block"
+                                                         :percentage="book.progress"/>
+                                            <el-progress v-else
+                                                         style="width: 350px;display:inline-block"
+                                                         :percentage="book.status=='Read'? 100 : 0"/>
+                                        </div>
+                                        <div v-if="book.URL">
+                                            <el-tag>链接</el-tag>
+                                            <el-link :href="book.URL" type="primary">{{book.URL}}</el-link>
+                                        </div>
+                                        <div>
+                                            <el-tag>操作</el-tag>
+                                            <el-button type="primary" size="mini" icon="el-icon-edit" circle/>
+                                            <el-button type="danger" size="mini" icon="el-icon-delete" circle
+                                                       v-on:click="remove(title)"/>
+                                        </div>
+                                    </el-collapse-item>
                                 </el-collapse>
                             `
                         }
