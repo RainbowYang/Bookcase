@@ -100,11 +100,12 @@
     if (window.top !== window) {
         document.domain = "rainbowyang.moe" // for cross origin
         let el = document.body
+        let append = 30
         let lastHeight = el.scrollHeight
         window.setInterval(() => {
             if (lastHeight !== el.scrollHeight) {
                 lastHeight = el.scrollHeight
-                window.top.document.getElementById("bookcase").height = lastHeight
+                window.top.document.getElementById("bookcase").height = lastHeight + append
             }
         }, 20)
     }
